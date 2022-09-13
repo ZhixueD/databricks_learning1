@@ -72,6 +72,10 @@ DESCRIBE HISTORY events
 
 -- COMMAND ----------
 
+describe extended events
+
+-- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC 
 -- MAGIC 
@@ -112,8 +116,8 @@ DESCRIBE HISTORY sales
 
 -- COMMAND ----------
 
--- INSERT OVERWRITE sales
--- SELECT *, current_timestamp() FROM parquet.`${da.paths.datasets}/raw/sales-historical`
+INSERT OVERWRITE sales
+SELECT *, current_timestamp() FROM parquet.`${da.paths.datasets}/raw/sales-historical`
 
 -- COMMAND ----------
 

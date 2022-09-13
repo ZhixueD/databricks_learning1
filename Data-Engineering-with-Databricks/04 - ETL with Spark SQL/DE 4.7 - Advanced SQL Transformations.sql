@@ -268,6 +268,19 @@ SELECT * FROM new_events_final
 
 -- COMMAND ----------
 
+SELECT
+    email,
+    order_id,
+    transaction_timestamp,
+    total_item_quantity,
+    purchase_revenue_in_usd,
+    unique_items,
+    item.item_id AS item_id,
+    item.quantity AS quantity
+  FROM sales_enriched
+
+-- COMMAND ----------
+
 CREATE OR REPLACE TABLE transactions AS
 
 SELECT * FROM (

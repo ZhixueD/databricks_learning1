@@ -69,7 +69,16 @@
 -- COMMAND ----------
 
 -- TODO
-<FILL_IN> ${da.paths.datasets}/raw/events-kafka/
+create table events_json
+  (key binary, offset long, partition integer, timestamp long, topic string, value binary)
+using json 
+options (
+  path = "${da.paths.datasets}/raw/events-kafka/"
+  )
+
+-- COMMAND ----------
+
+describe extended events_json
 
 -- COMMAND ----------
 
@@ -100,7 +109,8 @@
 -- COMMAND ----------
 
 -- TODO
-<FILL_IN>
+create or replace table events_raw 
+  (key binary, offset long, partition integer, timestamp long, topic string, value binary)
 
 -- COMMAND ----------
 
@@ -129,7 +139,8 @@
 -- COMMAND ----------
 
 -- TODO
-<FILL_IN>
+insert into events_raw
+select * from events_json
 
 -- COMMAND ----------
 
@@ -141,7 +152,7 @@
 -- COMMAND ----------
 
 -- TODO
-<FILL_IN>
+describe detail events_raw
 
 -- COMMAND ----------
 
@@ -170,7 +181,8 @@
 -- COMMAND ----------
 
 -- TODO
-<FILL_IN> ${da.paths.datasets}/raw/item-lookup
+create or replace table item_lookup as
+select * from parquet.`${da.paths.datasets}/raw/item-lookup`
 
 -- COMMAND ----------
 

@@ -107,6 +107,10 @@ DESCRIBE EXTENDED students
 
 -- COMMAND ----------
 
+describe students
+
+-- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC 
 -- MAGIC 
@@ -135,6 +139,11 @@ DESCRIBE DETAIL students
 -- MAGIC We can see the files backing our Delta Lake table by using a Databricks Utilities function.
 -- MAGIC 
 -- MAGIC **NOTE**: It's not important right now to know everything about these files to work with Delta Lake, but it will help you gain a greater appreciation for how the technology is implemented.
+
+-- COMMAND ----------
+
+-- MAGIC %fs
+-- MAGIC ls dbfs:/user/brantredpill@gmail.com/dbacademy/dewd/2.3/2_3.db/students
 
 -- COMMAND ----------
 
@@ -196,6 +205,10 @@ DESCRIBE DETAIL students
 
 -- MAGIC %python
 -- MAGIC display(spark.sql(f"SELECT * FROM json.`{DA.paths.user_db}/students/_delta_log/00000000000000000007.json`"))
+
+-- COMMAND ----------
+
+describe history students
 
 -- COMMAND ----------
 
@@ -262,7 +275,7 @@ DESCRIBE HISTORY students
 -- COMMAND ----------
 
 SELECT * 
-FROM students VERSION AS OF 3
+FROM students VERSION AS OF 8
 
 -- COMMAND ----------
 
@@ -306,6 +319,10 @@ SELECT * FROM students
 
 -- COMMAND ----------
 
+describe history students
+
+-- COMMAND ----------
+
 RESTORE TABLE students TO VERSION AS OF 8 
 
 -- COMMAND ----------
@@ -332,7 +349,7 @@ RESTORE TABLE students TO VERSION AS OF 8
 
 -- COMMAND ----------
 
--- VACUUM students RETAIN 0 HOURS
+VACUUM students RETAIN 0 HOURS
 
 -- COMMAND ----------
 

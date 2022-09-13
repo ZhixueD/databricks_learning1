@@ -85,11 +85,22 @@
 -- COMMAND ----------
 
 -- TODO
-CREATE OR REPLACE VIEW events_pivot
-<FILL_IN>
+CREATE OR REPLACE VIEW events_pivot as
+select * from (
+select user_id as user, event_name from events)
+pivot (
+count(*) for event_name in 
 ("cart", "pillows", "login", "main", "careers", "guest", "faq", "down", "warranty", "finalize", 
 "register", "shipping_info", "checkout", "mattresses", "add_item", "press", "email_coupon", 
-"cc_info", "foam", "reviews", "original", "delivery", "premium")
+"cc_info", "foam", "reviews", "original", "delivery", "premium")) 
+
+-- COMMAND ----------
+
+select * from events
+
+-- COMMAND ----------
+
+select * from events_pivot
 
 -- COMMAND ----------
 
@@ -120,6 +131,10 @@ CREATE OR REPLACE VIEW events_pivot
 -- MAGIC %python
 -- MAGIC event_columns = ['user', 'cart', 'pillows', 'login', 'main', 'careers', 'guest', 'faq', 'down', 'warranty', 'finalize', 'register', 'shipping_info', 'checkout', 'mattresses', 'add_item', 'press', 'email_coupon', 'cc_info', 'foam', 'reviews', 'original', 'delivery', 'premium']
 -- MAGIC check_table_results("events_pivot", event_columns, 204586)
+
+-- COMMAND ----------
+
+select * from transactions
 
 -- COMMAND ----------
 
@@ -159,7 +174,13 @@ CREATE OR REPLACE VIEW events_pivot
 
 -- TODO
 CREATE OR REPLACE VIEW clickpaths AS
-<FILL_IN>
+select * from events_pivot a
+inner join transactions b
+on a.user = b.user_id
+
+-- COMMAND ----------
+
+describe clickpaths
 
 -- COMMAND ----------
 
@@ -198,9 +219,10 @@ CREATE OR REPLACE VIEW clickpaths AS
 
 -- TODO
 CREATE OR REPLACE TABLE sales_product_flags AS
-<FILL_IN>
-EXISTS <FILL_IN>.item_name LIKE "%Mattress"
-EXISTS <FILL_IN>.item_name LIKE "%Pillow"
+select items,
+EXISTS (items, i -> i.item_name LIKE "%Mattress") as mattress,
+EXISTS (items, i -> i.item_name LIKE "%Pillow") as pillow
+from sales
 
 -- COMMAND ----------
 

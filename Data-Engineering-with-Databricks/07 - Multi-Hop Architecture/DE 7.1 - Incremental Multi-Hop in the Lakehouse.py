@@ -86,6 +86,11 @@
 
 # COMMAND ----------
 
+# MAGIC %fs
+# MAGIC ls dbfs:/user/hive
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC 
 # MAGIC 
@@ -154,6 +159,21 @@ DA.data_factory.load()
 
 # COMMAND ----------
 
+# MAGIC %sql 
+# MAGIC select count(*) from bronze
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC describe history bronze
+
+# COMMAND ----------
+
+# MAGIC %sql 
+# MAGIC select count(*) from bronze
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC 
 # MAGIC 
@@ -203,6 +223,11 @@ DA.data_factory.load()
 (spark.readStream
   .table("bronze")
   .createOrReplaceTempView("bronze_tmp"))
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select * from bronze_tmp limit 5
 
 # COMMAND ----------
 

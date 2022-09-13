@@ -39,6 +39,7 @@
 
 DA.data_factory.load()
 
+
 # COMMAND ----------
 
 # MAGIC %md

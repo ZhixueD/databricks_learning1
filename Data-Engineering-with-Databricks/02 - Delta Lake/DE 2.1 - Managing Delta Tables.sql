@@ -240,6 +240,10 @@ WHEN NOT MATCHED AND u.type = "insert"
 
 -- COMMAND ----------
 
+select * from students
+
+-- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC 
 -- MAGIC 

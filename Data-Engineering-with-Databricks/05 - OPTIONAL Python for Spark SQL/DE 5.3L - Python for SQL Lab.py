@@ -225,6 +225,10 @@ display(results)
 
 # COMMAND ----------
 
+spark.sql('select unique(state) from demo_table')
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC 
 # MAGIC 
@@ -246,8 +250,8 @@ display(results)
 # COMMAND ----------
 
 # TODO
-def preview_values(state=<FILL-IN>, render_results=<FILL-IN>):
-    query = <FILL-IN>
+def preview_values(state=, render_results=<FILL-IN>):
+    query = f'select id, value from demo_table where state = {state_name}'
 
     if state is not None:
         <FILL-IN>

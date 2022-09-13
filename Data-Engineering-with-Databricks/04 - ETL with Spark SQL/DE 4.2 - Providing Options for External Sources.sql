@@ -107,6 +107,10 @@ LOCATION "${da.paths.working_dir}/sales-csv"
 
 -- COMMAND ----------
 
+describe extended sales_csv
+
+-- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC 
 -- MAGIC 

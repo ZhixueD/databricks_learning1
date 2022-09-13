@@ -46,7 +46,7 @@
 -- COMMAND ----------
 
 -- mode "FAILFAST" will abort file parsing with a RuntimeException if any malformed lines are encountered
-CREATE TABLE external_table
+CREATE TABLE if not exists external_table
 USING CSV OPTIONS (
   path = '${da.paths.working_dir}/flight_delays',
   header = "true",
@@ -54,6 +54,11 @@ USING CSV OPTIONS (
 );
 
 SELECT * FROM external_table;
+
+-- COMMAND ----------
+
+describe extended external_table
+
 
 -- COMMAND ----------
 
@@ -156,6 +161,7 @@ SHOW TABLES;
 
 -- COMMAND ----------
 
+drop view global_temp.global_temp_view_dist_gt_1000;
 CREATE GLOBAL TEMPORARY VIEW global_temp_view_dist_gt_1000 
 AS SELECT * FROM external_table WHERE distance > 1000;
 
